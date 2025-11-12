@@ -257,6 +257,15 @@ async def approve_product(
         }}
     )
     
+    # Create notification for seller
+    await create_notification(
+        user_id=product.seller_id,
+        title=f"Product {action.action.title()}d",
+        message=f"Your product '{product.title}' has been {action.action}d by admin. {'You can now sync it to Amazon!' if is_approved else action.notes or ''}",
+        notification_type="success" if is_approved else "warning",
+        action_url="/seller/products"
+    )
+    
     logger.info(f"✅ Product {action.action}d: {product_id}")
     
     return {
