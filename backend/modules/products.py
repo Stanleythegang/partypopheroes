@@ -196,6 +196,15 @@ async def sync_to_amazon(
             }}
         )
         
+        # Create notification
+        await create_notification(
+            user_id=current_user.id,
+            title="Product Synced to Amazon",
+            message=f"'{product.title}' successfully synced to Amazon with ASIN: {sync_result['asin']}",
+            notification_type="success",
+            action_url=f"/seller/products"
+        )
+        
         return AmazonSyncResponse(
             success=True,
             product_id=product.id,
