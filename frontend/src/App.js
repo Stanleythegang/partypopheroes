@@ -47,6 +47,7 @@ function App() {
             <Route path="/seller/products/edit/:id" element={<EditProduct />} />
             <Route path="/seller/analytics" element={<Analytics />} />
             <Route path="/seller/orders" element={<Orders />} />
+            <Route path="/seller/payouts" element={<Payouts />} />
             <Route path="/seller/settings" element={<Settings />} />
             <Route path="/seller/admin/products" element={<AdminProducts />} />
             
