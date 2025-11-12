@@ -20,6 +20,7 @@ db = client[os.environ['DB_NAME']]
 # Inject database into modules
 auth.set_db(db)
 kyc.set_db(db)
+products.set_db(db)
 
 # Create the main app
 app = FastAPI(
