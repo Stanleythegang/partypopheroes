@@ -174,13 +174,15 @@ async def sync_to_amazon(
     if product.synced_to_amazon:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Product already synced")
     
-    sync_result = await amazon_api.create_product_listing({
+    # Sync to Amazon
+    sync_result = await amazon_api.create_listing({
         'id': product.id,
         'title': product.title,
         'description': product.description,
         'price': product.price,
         'quantity': product.quantity,
         'category': product.category,
+        'sku': product.sku or f"SKU-{product.id[:8]}",
         'images': [img.dict() for img in product.images]
     })
     
