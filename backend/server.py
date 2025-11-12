@@ -59,6 +59,8 @@ api_router.include_router(auth.router)
 api_router.include_router(kyc.router)
 api_router.include_router(products.router)
 api_router.include_router(ai.router)
+api_router.include_router(notifications.router)
+api_router.include_router(payouts.router)
 
 # Include the main router in the app
 app.include_router(api_router)
