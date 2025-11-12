@@ -22,7 +22,7 @@ const Home = () => {
       setApiStatus(response.data);
 
       // Test products API
-      const productsRes = await axios.get(`${API}/products`);
+      const productsRes = await axios.get(`${API}/products/`);
       setProducts(productsRes.data);
 
       // Test AI recommendations
