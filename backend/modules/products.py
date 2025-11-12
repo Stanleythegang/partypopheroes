@@ -14,7 +14,8 @@ from models.product import (
 )
 from models.user import UserInDB
 from modules.auth import get_current_user, get_admin_user
-from utils.amazon_mock import amazon_api
+from utils.amazon_sp_api import amazon_api
+from modules.notifications import create_notification
 
 logger = logging.getLogger(__name__)
 
