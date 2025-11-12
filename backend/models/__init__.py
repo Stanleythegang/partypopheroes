@@ -14,6 +14,16 @@ from .kyc import (
     KYCApplicationResponse,
     KYCReviewAction
 )
+from .product import (
+    ProductImage,
+    ProductCreate,
+    ProductUpdate,
+    ProductInDB,
+    ProductResponse,
+    ProductApprovalAction,
+    AmazonSyncRequest,
+    AmazonSyncResponse
+)
 
 __all__ = [
     'UserBase',
@@ -27,5 +37,13 @@ __all__ = [
     'KYCApplicationCreate',
     'KYCApplicationInDB',
     'KYCApplicationResponse',
-    'KYCReviewAction'
+    'KYCReviewAction',
+    'ProductImage',
+    'ProductCreate',
+    'ProductUpdate',
+    'ProductInDB',
+    'ProductResponse',
+    'ProductApprovalAction',
+    'AmazonSyncRequest',
+    'AmazonSyncResponse'
 ]
