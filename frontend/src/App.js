@@ -23,6 +23,7 @@ import Analytics from "./pages/seller/Analytics";
 import Orders from "./pages/seller/Orders";
 import Settings from "./pages/seller/Settings";
 import AdminProducts from "./pages/seller/AdminProducts";
+import Payouts from "./pages/seller/Payouts";
 
 function App() {
   return (
