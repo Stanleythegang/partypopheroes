@@ -29,6 +29,7 @@ const SellerLayout = ({ children }) => {
     { path: '/seller/products', icon: Package, label: 'Products' },
     { path: '/seller/orders', icon: ShoppingCart, label: 'Orders' },
     { path: '/seller/analytics', icon: BarChart3, label: 'Analytics' },
+    { path: '/seller/payouts', icon: DollarSign, label: 'Payouts' },
     { path: '/seller/settings', icon: Settings, label: 'Settings' }
   ];
 
