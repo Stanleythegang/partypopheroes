@@ -7,7 +7,7 @@ import logging
 from pathlib import Path
 
 # Import module routers
-from modules import auth, products, ai
+from modules import auth, products, ai, kyc
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -17,11 +17,15 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
+# Inject database into modules
+auth.set_db(db)
+kyc.set_db(db)
+
 # Create the main app
 app = FastAPI(
     title="Hamro API",
-    description="Backend API for Hamro Platform",
-    version="1.0.0"
+    description="Backend API for Hamro Platform - E-commerce with Authentication & KYC",
+    version="2.0.0"
 )
 
 # Create a router with the /api prefix
@@ -33,8 +37,9 @@ async def root():
     return {
         "message": "Hello from Hamro",
         "platform": "Hamro",
-        "version": "1.0.0",
-        "status": "running"
+        "version": "2.0.0",
+        "status": "running",
+        "features": ["authentication", "kyc", "products", "ai"]
     }
 
 @api_router.get("/health")
@@ -42,11 +47,13 @@ async def health_check():
     return {
         "status": "healthy",
         "database": "connected",
-        "service": "hamro-backend"
+        "service": "hamro-backend",
+        "modules": ["auth", "kyc", "products", "ai"]
     }
 
 # Include module routers
 api_router.include_router(auth.router)
+api_router.include_router(kyc.router)
 api_router.include_router(products.router)
 api_router.include_router(ai.router)
 
