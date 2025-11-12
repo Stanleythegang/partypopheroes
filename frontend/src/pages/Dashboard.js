@@ -135,18 +135,25 @@ const Dashboard = () => {
               </Card>
             )}
 
-            {/* KYC Card */}
+            {/* Seller Dashboard Card */}
             {user.role === 'seller' && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Seller Verification (KYC)</CardTitle>
+                  <CardTitle>Seller Dashboard</CardTitle>
                   <CardDescription>
-                    Complete KYC to start selling on Hamro
+                    Manage your products and view analytics
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Button 
+                    onClick={() => navigate('/seller/dashboard')}
+                    className="w-full mb-2"
+                  >
+                    Go to Seller Dashboard
+                  </Button>
+                  <Button 
                     onClick={() => navigate('/kyc')}
+                    variant="outline"
                     className="w-full"
                   >
                     <Upload className="w-4 h-4 mr-2" />
