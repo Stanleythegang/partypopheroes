@@ -7,7 +7,7 @@ import logging
 from pathlib import Path
 
 # Import module routers
-from modules import auth, products, ai, kyc
+from modules import auth, products, ai, kyc, notifications, payouts
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -21,6 +21,8 @@ db = client[os.environ['DB_NAME']]
 auth.set_db(db)
 kyc.set_db(db)
 products.set_db(db)
+notifications.set_db(db)
+payouts.set_db(db)
 
 # Create the main app
 app = FastAPI(
