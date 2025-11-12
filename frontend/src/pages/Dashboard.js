@@ -169,15 +169,22 @@ const Dashboard = () => {
                 <CardHeader>
                   <CardTitle>Admin Panel</CardTitle>
                   <CardDescription>
-                    Manage KYC applications and users
+                    Manage KYC applications and products
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="space-y-2">
                   <Button 
                     onClick={() => navigate('/admin/kyc')}
                     className="w-full"
                   >
                     Review KYC Applications
+                  </Button>
+                  <Button 
+                    onClick={() => navigate('/seller/admin/products')}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    Manage Products
                   </Button>
                 </CardContent>
               </Card>
