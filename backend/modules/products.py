@@ -175,8 +175,8 @@ async def sync_to_amazon(
     if product.synced_to_amazon:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Product already synced")
     
-    # Sync to Amazon
-    sync_result = await amazon_api.create_listing({
+    # Prepare product data for Amazon
+    product_data = {
         'id': product.id,
         'title': product.title,
         'description': product.description,
@@ -184,15 +184,27 @@ async def sync_to_amazon(
         'quantity': product.quantity,
         'category': product.category,
         'sku': product.sku or f"SKU-{product.id[:8]}",
+        'brand': 'Generic',
         'images': [img.dict() for img in product.images]
-    })
+    }
     
-    if sync_result['success']:
+    # Create sync log
+    sync_log_id = await create_sync_log(
+        operation='create_listing',
+        request_data=product_data,
+        product_id=product.id
+    )
+    
+    # Sync to Amazon
+    sync_result = await amazon_client.create_listing(product_data, db, sync_log_id)
+    
+    if sync_result.get('success'):
+        # Update product with Amazon listing ID
         await db.products.update_one(
             {"id": product.id},
             {"$set": {
                 "synced_to_amazon": True,
-                "amazon_asin": sync_result['asin'],
+                "amazon_asin": sync_result.get('amazon_listing_id'),
                 "updated_at": datetime.utcnow()
             }}
         )
@@ -201,7 +213,7 @@ async def sync_to_amazon(
         await create_notification(
             user_id=current_user.id,
             title="Product Synced to Amazon",
-            message=f"'{product.title}' successfully synced to Amazon with ASIN: {sync_result['asin']}",
+            message=f"'{product.title}' successfully synced to Amazon (Listing ID: {sync_result.get('amazon_listing_id')})",
             notification_type="success",
             action_url=f"/seller/products"
         )
@@ -209,12 +221,15 @@ async def sync_to_amazon(
         return AmazonSyncResponse(
             success=True,
             product_id=product.id,
-            amazon_asin=sync_result['asin'],
-            message=sync_result['message'],
+            amazon_asin=sync_result.get('amazon_listing_id'),
+            message=sync_result.get('message', 'Product synced to Amazon'),
             synced_at=datetime.utcnow()
         )
     else:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to sync")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=sync_result.get('error', 'Failed to sync to Amazon')
+        )
 
 @router.get("/admin/all", response_model=List[ProductResponse])
 async def get_all_products_admin(
