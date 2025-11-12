@@ -24,6 +24,19 @@ from .product import (
     AmazonSyncRequest,
     AmazonSyncResponse
 )
+from .notification import (
+    NotificationCreate,
+    NotificationInDB,
+    NotificationResponse
+)
+from .payout import (
+    StripeAccountCreate,
+    StripeAccountInDB,
+    PayoutCreate,
+    PayoutInDB,
+    PayoutResponse,
+    BalanceResponse
+)
 
 __all__ = [
     'UserBase',
@@ -45,5 +58,14 @@ __all__ = [
     'ProductResponse',
     'ProductApprovalAction',
     'AmazonSyncRequest',
-    'AmazonSyncResponse'
+    'AmazonSyncResponse',
+    'NotificationCreate',
+    'NotificationInDB',
+    'NotificationResponse',
+    'StripeAccountCreate',
+    'StripeAccountInDB',
+    'PayoutCreate',
+    'PayoutInDB',
+    'PayoutResponse',
+    'BalanceResponse'
 ]
