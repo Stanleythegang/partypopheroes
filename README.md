@@ -119,12 +119,30 @@ REACT_APP_BACKEND_URL=http://localhost:8001
 - `POST /api/ai/chat` - AI chatbot
 - `POST /api/ai/price-prediction` - Price prediction
 
-## 🧪 Testing the Connection
+## 🧪 Testing the Implementation
+
+### Quick Test Credentials
+
+**Admin User (for testing):**
+- Email: `admin@hamro.com`
+- Password: `admin123`
+- Role: Admin (can review KYC applications)
+
+**Test User Flow:**
+1. Register at `/register` (creates new user)
+2. Check backend logs for verification link
+3. Login at `/login`
+4. View profile at `/dashboard`
+5. Submit KYC at `/kyc` (for sellers)
+6. Login as admin and review at `/admin/kyc`
+
+### Testing the Connection
 
 1. Start both backend and frontend servers
 2. Open browser to `http://localhost:3000`
-3. You should see "Hello from Hamro" message and connected modules
-4. Check browser console for connection logs
+3. You should see the Hamro landing page
+4. Navigate to `/register` to create an account
+5. Check browser console and backend logs for verification info
 
 ## 📦 Technology Stack
 
