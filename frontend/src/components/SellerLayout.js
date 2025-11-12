@@ -126,6 +126,9 @@ const SellerLayout = ({ children }) => {
 
           <div className="flex-1" />
 
+          {/* Notifications */}
+          <NotificationDropdown />
+
           {/* Theme Toggle */}
           <Button
             variant="ghost"
